@@ -1,10 +1,13 @@
 
+from validacoes import ler_id, ler_nome, ler_telefone
+
+
 def cadastrar_paciente(conexao):
     cursor = conexao.cursor()
-    nome = input("Nome: ")
+    nome = ler_nome("Nome: ")
     data_nascimento =(input("Data de Nascimento: "))
     cpf = input("CPF: ")
-    telefone =input("Telefone: ")    
+    telefone = ler_telefone("Telefone (somente números com DDD): ")
 
     sql = """
     INSERT INTO paciente (nome, data_nascimento, cpf, telefone)
@@ -35,11 +38,11 @@ def listar_paciente(conexao):
 
 def atualizar_paciente(conexao):
     cursor = conexao.cursor()
-    id_paciente = int(input("ID do paciente: "))
-    novo_nome = input("Digite novo nome: ")
+    id_paciente = ler_id("ID do paciente: ")
+    novo_nome = ler_nome("Digite novo nome: ")
     nova_data_nascimento = input("Digite a nova data de nascimento: ")
-    novo_cpf = int(input("Digite o novo cpf: "))
-    novo_telefone = int(input("Digite o novo telefone: "))
+    novo_cpf = input("Digite o novo CPF: ")
+    novo_telefone = ler_telefone("Digite o novo telefone (somente números com DDD): ")
 
     sql = """
     UPDATE paciente
@@ -62,7 +65,7 @@ def atualizar_paciente(conexao):
 
 def excluir_paciente(conexao):
     cursor = conexao.cursor()
-    id_paciente = int(input("ID do paciente: "))
+    id_paciente = ler_id("ID do paciente: ")
     sql = "DELETE FROM paciente WHERE id = %s"
     cursor.execute(sql, (id_paciente,))
     excluidos = cursor.rowcount

@@ -49,3 +49,13 @@ def ler_email(mensagem):
         ):
             return email
         print("E-mail inválido. Informe um endereço no formato nome@dominio.com.")
+from datetime import datetime
+
+
+def ler_data(mensagem):
+    while True:
+        valor = input(mensagem).strip()
+        try:
+            return datetime.strptime(valor, "%d-%m-%Y").date()
+        except ValueError:
+            print("Data inválida. Digite no formato DD-MM-AAAA (ex: 28-11-2026).")
